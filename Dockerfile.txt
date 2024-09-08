@@ -1,0 +1,21 @@
+# Використовуємо офіційний образ Python 3.12
+FROM python:3.12-slim
+
+# Встановлюємо робочу директорію в контейнері
+WORKDIR /app
+
+# Копіюємо файл вимог (requirements.txt) та встановлюємо необхідні залежності
+COPY requirements.txt requirements.txt
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Копіюємо всі файли додатку у контейнер
+COPY . .
+
+# Створюємо директорію storage, якщо її немає
+RUN mkdir -p /app/storage
+
+# Відкриваємо порт для доступу до Flask-додатку
+EXPOSE 3000
+
+# Запускаємо Flask додаток
+CMD ["python", "HW4.1.py"]
